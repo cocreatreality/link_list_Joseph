@@ -72,3 +72,4 @@ def main():
         Joseph.Insert("Tom", "001", "15", "m")
         node = Joseph.GetChild("001")
         Joseph.ShowChild(node)
+        return 0
