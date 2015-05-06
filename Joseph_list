@@ -1,8 +1,6 @@
+
 class Child(object):
-	"""every child object has four information property and two structer property 
-	the type of name, idNumber, age, sex is string, while the type of preChild and reChild
-	is a quto of Child object"""
-	def __init__(self, name, idNumber, age, sex, preChild, reChild):
+	def __init__(self, name = None, idNumber = None, age = None, sex = None, preChild = None, reChild = None):
 		self.name = name
 		self.idNumber = idNumber
 		self.age = age
@@ -10,61 +8,65 @@ class Child(object):
 		self.preChild = preChild
 		self.reChild = reChild
 
-	def printInfo(outCount):
-		print ("第" + outCount + "出局的是" + self.name + "\n")
-
 
 class ChildrenLoop:
-    def __init__(self):
-        self.lenth = 0
-        self.head = None
-        self.tail = None
-    def Insert(self, name, idNumber, age, sex):
-        if self.head is None:
-            head = Child(name, idNumber, age, sex, None, self.tail)
-        elif self.tail is None:
-            tail = Child(name, idNumber, age, sex, None, self.tail)
-        else:
-            node = Child(name, idNumber, age, sex, tail, head)
-            tail.reChild = node
-            tail = node
-        self.lenth = self.lenth + 1
-    def GetChild(self, idNumber):
-        if self.lenth is 0:
-            print ("The loop is empty! \n")
-        node = self.head
-        while node.idNumber is not idNumber:
-            node = node.reChild
-        return node
-    def ShowChild(self, node):
-        print("Name: " + node.name + "\t" + "idNumber" + node.idNumber + "\t" + "Age" + node.age + "\t" + "Sex" + node.sex + "\t\n")
-    def Delete(self, node):
-        self.PrintChild(node)
-        prenode = node.preChild
-        nextnode = node.reChild
-        prenode.reChild = nextnode
-        nextnode.preChild = prenode
-    def startGame(self, idNumber, method, step):
-        node = self.Getchild(idNumber)
-        count = 1
-        while self.lenth is not 1:
-            print("第" + count + "个出列的同学是：\n")
-            if method is 1:
-                for i in range(step):
-                    node = node.renode
-                temp = node.renode
-                self.Delete(node)
-                node = temp
-            else:
-                for i in range(step):
-                    node = node.prenode
-
-                temp = node.prenode
-                self.Delete(node)
-                node = temp
-            count = count + 1
-        print ("剩下的同学是：\n")
-        self.ShowChild(node)
+        def __init__(self):
+                self.lenth = 0
+                self.head = self.tail = Child()
+                self.head.preChild = self.tail
+                self.head.reChild = self.tail
+                self.tail.reChild = self.head
+                self.tail.preChild = self.head
+        def Insert(self, name, idNumber, age, sex):
+                if self.lenth is 0:
+                    self.head = Child(name, idNumber, age, sex, self.tail, self.tail)
+                elif self.lenth is 1:
+                    self.tail = Child(name, idNumber, age, sex, self.head, self.head)
+                else:
+                    node = Child(name, idNumber, age, sex, self.tail, self.head)
+                    self.tail.preChild = node
+                    self.head.reChild = node
+                    self.tail = node
+                    self.lenth = self.lenth + 1
+        def GetChild(self, idNumber):
+                if self.lenth is 0:
+                    print ("The loop is empty! \n")
+                node = self.head
+                count = 0
+                while node.idNumber is not idNumber and count is not self.lenth:
+                    node = node.reChild
+                    count = count + 1
+                if count is self.lenth:
+                    print("There is no such child. \n")
+                    return None
+                else:
+                    return node
+        def ShowChild(self, node):
+                print("Name: " + node.name + "\t" + "idNumber: " + node.idNumber + "\t" + "Age: " + node.age + "\t" + "Sex: " + node.sex + "\t" + "\n")
+        def Delete(self, node):
+                self.ShowChild(node)
+                node.reChild.preChild = node.preChild
+                node.preChild.reChild = node.reChild
+        def startGame(self, idNumber, method, step):
+                node = self.Getchild(idNumber)
+                count = 1
+                while self.lenth is not 1:
+                    print("第" + count + "个出列的同学是：\n")
+                    if method is 1:
+                        for i in range(step):
+                            node = node.recChild
+                        temp = node.reChild
+                        self.Delete(node)
+                        node = temp
+                    else:
+                        for i in range(step):
+                            node = node.preChild
+                        temp = node.preChild
+                        self.Delete(node)
+                        node = temp
+                    count = count + 1
+                print ("剩下的同学是：\n")
+                self.ShowChild(node)
 
 def main():
         Joseph = ChildrenLoop()
@@ -72,4 +74,3 @@ def main():
         Joseph.Insert("Tom", "001", "15", "m")
         node = Joseph.GetChild("001")
         Joseph.ShowChild(node)
-        return 0
