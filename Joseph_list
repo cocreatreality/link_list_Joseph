@@ -48,10 +48,12 @@ class ChildrenLoop:
                 node.reChild.preChild = node.preChild
                 node.preChild.reChild = node.reChild
         def startGame(self, idNumber, method, step):
-                node = self.Getchild(idNumber)
+                node = self.GetChild(idNumber)
                 count = 1
                 while self.lenth is not 1:
-                    print("第" + count + "个出列的同学是：\n")
+                    print("第")
+                    print(count)
+                    print("个出列的同学是：\n")
                     if method is 1:
                         for i in range(step):
                             node = node.reChild
@@ -72,5 +74,8 @@ def main():
         Joseph = ChildrenLoop()
         print("Please insert the information of children. \n")
         Joseph.Insert("Tom", "001", "15", "m")
+        Joseph.Insert("Tomy", "002", "15", "m")
+        Joseph.Insert("Amy", "003", "14", "f")
+        Joseph.startGame("001", 1, 1)
         node = Joseph.GetChild("001")
         Joseph.ShowChild(node)
