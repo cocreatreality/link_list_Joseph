@@ -27,7 +27,7 @@ class ChildrenLoop:
                     self.tail.preChild = node
                     self.head.reChild = node
                     self.tail = node
-                    self.lenth = self.lenth + 1
+                self.lenth = self.lenth + 1
         def GetChild(self, idNumber):
                 if self.lenth is 0:
                     print ("The loop is empty! \n")
@@ -54,7 +54,7 @@ class ChildrenLoop:
                     print("第" + count + "个出列的同学是：\n")
                     if method is 1:
                         for i in range(step):
-                            node = node.recChild
+                            node = node.reChild
                         temp = node.reChild
                         self.Delete(node)
                         node = temp
